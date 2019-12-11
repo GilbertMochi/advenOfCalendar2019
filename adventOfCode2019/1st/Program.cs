@@ -15,7 +15,7 @@ namespace _1st
             string[] modules = File.ReadAllLines(path, Encoding.UTF8);
 
             double neededFuel = 0;
-            double f = 0;
+            double totalNeededFuel = 0;
 
             foreach (string line in modules)
             {
@@ -28,33 +28,27 @@ namespace _1st
                 if (parseSuccess)
                 {
                     neededFuel += CalculateNeededFuelForModule(moduleFuel);
+                    totalNeededFuel += calculateTotalFuel(moduleFuel);
                 }
-                f += calculateTotalFuel(neededFuel);
-
             }
 
             Console.WriteLine($"Needed fuel: {neededFuel}");
-            Console.WriteLine($"Total fuel: {f}");
+            Console.WriteLine($"Total fuel: {totalNeededFuel}");
         }
 
-        static double CalculateNeededFuelForModule(double m)
+        static double CalculateNeededFuelForModule(double mass)
         {
-            return (Math.Floor(m / 3)) - 2;
+            return (Math.Floor(mass / 3)) - 2;
         }
 
-        static double calculateTotalFuel(double fuel)
+        static double calculateTotalFuel(double mass)
         {
-            double totalFuel = fuel;
-            while (fuel > 0)
+            double neededFuel = CalculateNeededFuelForModule(mass);
+            double totalFuel = 0;
+            while (neededFuel > 0)
             {
-                fuel = CalculateNeededFuelForModule(fuel);
-
-                if (fuel < 0)
-                {
-                    fuel = 0;
-                }
-
-                totalFuel += fuel;
+                totalFuel += neededFuel;
+                neededFuel = CalculateNeededFuelForModule(neededFuel);
             }
 
             return totalFuel;
