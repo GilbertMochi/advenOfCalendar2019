@@ -14,6 +14,7 @@ namespace _2ndDay
 
         static void FindNounAndVerbForGivenResult(int[] arr, int result)
         {
+
             int[] array = new int[arr.Length];
             arr.CopyTo(array, 0);
 
@@ -28,31 +29,34 @@ namespace _2ndDay
                 {
                     for (int i = 0; i < array.Length - 5; i += 4)
                     {
-                        array[1] = j;
-                        array[2] = k;
+                        if(array[i] != 99)
+                        {
+                            array[1] = j;
+                            array[2] = k;
 
-                        opcodeIndex = i;
-                        firstIndex = i + 1;
-                        secondIndex = i + 2;
-                        resultIndex = i + 3;
+                            opcodeIndex = i;
+                            firstIndex = i + 1;
+                            secondIndex = i + 2;
+                            resultIndex = i + 3;
 
-                        int firstNum = array[firstIndex];
-                        int secondNum = array[secondIndex];
-                        int whereToPutResult = array[resultIndex];
+                            int firstNum = array[firstIndex];
+                            int secondNum = array[secondIndex];
+                            int whereToPutResult = array[resultIndex];
 
-                        array[whereToPutResult] = executeOpCode(array[opcodeIndex], array[firstNum], array[secondNum]);//lovely equation here
+                            array[whereToPutResult] = executeOpCode(array[opcodeIndex], array[firstNum], array[secondNum]);//lovely equation here
+                        }
 
                         if (array[i] == 99)//if opcode is 99
                         {
-                            i = array.Length;//halt third loop                         
+                            i = array.Length;//halt third loop                  
 
                             if (array[0] == result)
                             {
                                 Console.WriteLine($"\nnoun={j}, verb={k}.");
-
                                 k = 100;//halt second loop
                                 j = 100;//halt first loop
                             }
+                            
                             Console.WriteLine($"\nProgram halted. Value in position [0] : {array[0]}. \n");
                         }
 
