@@ -15,25 +15,35 @@ namespace _2ndDay
         static void FindNounAndVerbForGivenResult(int[] arr, int result)
         {
 
+            Console.WriteLine("\n----Finding Noun and Verb----\n");
+
             int[] array = new int[arr.Length];
             arr.CopyTo(array, 0);
+
+            Console.WriteLine("Array at first:");
+
+            foreach (int n in array)
+            {
+                Console.WriteLine(n);
+            }
+            Console.WriteLine();
 
             int opcodeIndex = 0;
             int firstIndex = 1;
             int secondIndex = 2;
             int resultIndex = 3;
 
-            for (int j = 0; j <= 99; j++)
+            for(int j = 0;j<=99;j++)
             {
-                for (int k = 0; k <= 99; k++)
+                array[1] = j;
+                for(int k = 0; k <= 99; k++)
                 {
+                    array[2] = k;
                     for (int i = 0; i < array.Length - 5; i += 4)
                     {
-                        if(array[i] != 99)
+                        
+                        if (array[i] != 99)
                         {
-                            array[1] = j;
-                            array[2] = k;
-
                             opcodeIndex = i;
                             firstIndex = i + 1;
                             secondIndex = i + 2;
@@ -43,26 +53,22 @@ namespace _2ndDay
                             int secondNum = array[secondIndex];
                             int whereToPutResult = array[resultIndex];
 
+                            Console.WriteLine($"i = {i}, OpCode index = {opcodeIndex}, first index = {firstIndex}, second index = {secondIndex}.");
+                            Console.WriteLine($"OpCode = {array[opcodeIndex]}, first num = {array[firstNum]}, second num = {array[secondNum]}.");
+
                             array[whereToPutResult] = executeOpCode(array[opcodeIndex], array[firstNum], array[secondNum]);//lovely equation here
+
+                            Console.WriteLine($"result index = {whereToPutResult}, result = {array[whereToPutResult]}.\n");
                         }
 
-                        if (array[i] == 99)//if opcode is 99
+                        if (array[0] == result && array[i] == 99)//if opcode is 99
                         {
-                            i = array.Length;//halt third loop                  
-
-                            if (array[0] == result)
-                            {
-                                Console.WriteLine($"\nnoun={j}, verb={k}.");
-                                k = 100;//halt second loop
-                                j = 100;//halt first loop
-                            }
-                            
-                            Console.WriteLine($"\nProgram halted. Value in position [0] : {array[0]}. \n");
+                            Console.WriteLine($"\nProgram halted. Value in position [0] : {array[0]}. noun={j} verb={k} \n");
+                            i = array.Length + 1;//i will be changed to equal the length of the array and for loop will be finished
+                            j = 100;//halt loop
+                            k = 100;//halt loop
                         }
-
                     }
-
-
                 }
             }
 
@@ -70,6 +76,8 @@ namespace _2ndDay
 
         static void GetResultFromArray(int[] arr)
         {
+            Console.WriteLine("\n----Getting result from array----\n");
+
             int[] array = new int[arr.Length];
             arr.CopyTo(array, 0);
 
