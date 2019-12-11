@@ -13,29 +13,33 @@ namespace _2ndDay
             int secondIndex = 2;
             int resultIndex = 3;
 
-            for (int i = 0; i < numArray.Length-5; i += 4)
+            for (int i = 0; i < numArray.Length - 5; i += 4)
             {
-                 if (numArray[i] == 99)//if opcode is 99
-                {
-                    i = numArray.Length+1;//i will be changed to equal the length of the array and for loop will be finished
-                    Console.WriteLine($"\nProgram halted. Value in position [0] : {numArray[0]}. \n");
-                }
-               if (numArray[i] != 99)
+
+                if (numArray[i] != 99)
                 {
                     opcodeIndex = i;
                     firstIndex = i + 1;
                     secondIndex = i + 2;
                     resultIndex = i + 3;
 
-                    Console.WriteLine($"i = {i}, OpCode index = {opcodeIndex}, first index = {firstIndex}, second index = {secondIndex}.");
-                    Console.WriteLine($"OpCode = {numArray[opcodeIndex]}, first num = {numArray[firstIndex]}, second num = {numArray[secondIndex]}.");
-
+                    int firstNum = numArray[firstIndex];
+                    int secondNum = numArray[secondIndex];
                     int whereToPutResult = numArray[resultIndex];
 
-                    numArray[whereToPutResult] = executeOpCode(numArray[opcodeIndex], numArray[firstIndex], numArray[secondIndex]);//lovely equation here
+                    Console.WriteLine($"i = {i}, OpCode index = {opcodeIndex}, first index = {firstIndex}, second index = {secondIndex}.");
+                    Console.WriteLine($"OpCode = {numArray[opcodeIndex]}, first num = {numArray[firstNum]}, second num = {numArray[secondNum]}.");
+
+                    numArray[whereToPutResult] = executeOpCode(numArray[opcodeIndex], numArray[firstNum], numArray[secondNum]);//lovely equation here
 
                     Console.WriteLine($"result index = {whereToPutResult}, result = {numArray[whereToPutResult]}.\n");
-                }               
+                }
+
+                if (numArray[i] == 99)//if opcode is 99
+                {
+                    i = numArray.Length + 1;//i will be changed to equal the length of the array and for loop will be finished
+                    Console.WriteLine($"\nProgram halted. Value in position [0] : {numArray[0]}. \n");
+                }
             }
         }
 
@@ -55,6 +59,12 @@ namespace _2ndDay
                 default:
                     break;
             }
+
+            if (result == 19690720)
+            {
+                Console.WriteLine($"\n\nResult was 19690720. noun={a} verb={b}. OpCode was {opCode}.\n\n");
+            }
+
 
             return result;
         }
